@@ -3,7 +3,7 @@
 # Thomas's Notes:
 In order to make sure I'm not blowing out the two hour time limit, here's some notes on parts I would have given more attention to if I had a longer time-limit:
 - The tests are present and passing, and I've given them a look over, but not the full meticulous review I would give them, given I fundamentally don't trust AI tests. So the tests are there, and from a quick glance look okay, but do not trust their lies! 🤣
-- One of the tests is hitting an issue with it's mock of localstorage that I ran out of time to resolve, which isn't ideal.
+- One of the tests is hitting an warning (not a like hard breaking issue) with it's mock of localstorage that I ran out of time to resolve, which isn't ideal.
 - The QR code in the final step is totally fake, ideally I'd use the node package mentioned for one of the other possible take home assignments and make a QR code that way, but that feels out of scope so I skipped it.
 - Definitely abusing localstorage a bit here in a way that, if this were to be productionized, I'd have to pull out and replace with real actual network calls, but once again, felt a bit out of scope given time restrictions.
 - I've tried to do a thorough audit of inline css vars or hardcoded strings and refactor them out for some future internationalization, but I haven't done a full thorough audit so I bet somewhere there's something hardcoded in a gross way, once again just due to time constraints.
