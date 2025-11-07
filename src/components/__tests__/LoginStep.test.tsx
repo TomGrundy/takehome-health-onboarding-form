@@ -2,9 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { LoginStep } from '../LoginStep';
 import { OnboardingProvider } from '../../context/OnboardingContext';
-import { login } from '../../../../assets/auth';
+import { login } from '../../../assets/auth';
 
-jest.mock('../../../../assets/auth');
+jest.mock('../../../assets/auth');
 
 const mockLogin = login as jest.MockedFunction<typeof login>;
 
