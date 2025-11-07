@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { MembershipTier } from '../../types';
 import membershipTiersData from '../../../assets/membership-tiers.json';
-import { ACTION_TYPES, STEPS, UI_STRINGS, CAROUSEL } from '../../constants';
+import { ACTION_TYPES, STEPS, UI_STRINGS, CAROUSEL, TEXT } from '../../constants';
 import './MembershipTierStep.css';
 
 const membershipTiers: MembershipTier[] = membershipTiersData as MembershipTier[];
@@ -57,12 +57,12 @@ export function MembershipTierStep() {
 
   return (
     <div className="membership-tier-step">
-      <h2>Select Your Membership Tier</h2>
+      <h2>{TEXT.HEADERS.SELECT_YOUR_MEMBERSHIP_TIER}</h2>
       <div className="tiers-container">
         <button 
           className="carousel-button carousel-button-left"
           onClick={() => scrollCarousel('left')}
-          aria-label="Previous tier"
+          aria-label={TEXT.ARIA_LABELS.PREVIOUS_TIER}
           disabled={!canScrollLeft}
         >
           <span>‹</span>
@@ -82,7 +82,7 @@ export function MembershipTierStep() {
                   ${tier.price.toFixed(2)}
                   <span className="period">/{tier.billingPeriod}</span>
                 </div>
-                <div className="access-hours">Access Hours: {tier.accessHours}</div>
+                <div className="access-hours">{TEXT.LABELS.ACCESS_HOURS_PREFIX}{tier.accessHours}</div>
                 <ul className="features-list">
                   {tier.features.map((feature, index) => (
                     <li key={index}>{feature}</li>
@@ -101,7 +101,7 @@ export function MembershipTierStep() {
         <button 
           className="carousel-button carousel-button-right"
           onClick={() => scrollCarousel('right')}
-          aria-label="Next tier"
+          aria-label={TEXT.ARIA_LABELS.NEXT_TIER}
           disabled={!canScrollRight}
         >
           <span>›</span>

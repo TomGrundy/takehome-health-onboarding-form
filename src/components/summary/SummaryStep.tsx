@@ -2,7 +2,7 @@ import React from 'react';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { HealthCondition } from '../../types';
 import healthConditionsData from '../../../assets/health-conditions.json';
-import { UI_STRINGS, QR_CODE } from '../../constants';
+import { UI_STRINGS, QR_CODE, TEXT } from '../../constants';
 import './SummaryStep.css';
 
 const healthConditions: HealthCondition[] = healthConditionsData as HealthCondition[];
@@ -35,7 +35,7 @@ function MockQRCode({ data }: { data: string }) {
               y={i * cellSize}
               width={cellSize}
               height={cellSize}
-              fill={filled ? '#000' : '#fff'}
+              fill={filled ? '#000000' : '#ffffff'}
             />
           ))
         )}
@@ -59,50 +59,50 @@ export function SummaryStep() {
 
   return (
     <div className="summary-step">
-      <h2>Welcome! Your Membership is Ready</h2>
+      <h2>{TEXT.HEADERS.WELCOME_MEMBERSHIP_READY}</h2>
       <div className="summary-content">
         <div className="qr-section">
-          <h3>Your Membership QR Code</h3>
+          <h3>{TEXT.HEADERS.YOUR_MEMBERSHIP_QR_CODE}</h3>
           <p className="qr-description">
-            Scan this QR code at the gym to access facilities
+            {TEXT.MESSAGES.QR_CODE_DESCRIPTION}
           </p>
           <MockQRCode data={qrData} />
         </div>
         <div className="details-section">
           <div className="detail-card">
-            <h3>Member Information</h3>
+            <h3>{TEXT.HEADERS.MEMBER_INFORMATION}</h3>
             <div className="detail-item">
-              <span className="detail-label">Name:</span>
+              <span className="detail-label">{TEXT.LABELS.NAME}</span>
               <span className="detail-value">{state.user?.name || UI_STRINGS.LABELS.N_A}</span>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Email:</span>
+              <span className="detail-label">{TEXT.LABELS.EMAIL_LABEL}</span>
               <span className="detail-value">{state.user?.email || UI_STRINGS.LABELS.N_A}</span>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Member Since:</span>
+              <span className="detail-label">{TEXT.LABELS.MEMBER_SINCE}</span>
               <span className="detail-value">
                 {new Date().toLocaleDateString()}
               </span>
             </div>
           </div>
           <div className="detail-card">
-            <h3>Membership Plan</h3>
+            <h3>{TEXT.HEADERS.MEMBERSHIP_PLAN}</h3>
             <div className="detail-item">
-              <span className="detail-label">Tier:</span>
+              <span className="detail-label">{TEXT.LABELS.TIER}</span>
               <span className="detail-value">
                 {state.selectedMembershipTier?.name || UI_STRINGS.LABELS.N_A}
               </span>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Price:</span>
+              <span className="detail-label">{TEXT.LABELS.PRICE}</span>
               <span className="detail-value">
                 ${state.selectedMembershipTier?.price.toFixed(2) || '0.00'}/
-                {state.selectedMembershipTier?.billingPeriod || 'month'}
+                {state.selectedMembershipTier?.billingPeriod || TEXT.MESSAGES.MONTH}
               </span>
             </div>
             <div className="detail-item">
-              <span className="detail-label">Access Hours:</span>
+              <span className="detail-label">{TEXT.LABELS.ACCESS_HOURS}</span>
               <span className="detail-value">
                 {state.selectedMembershipTier?.accessHours || UI_STRINGS.LABELS.N_A}
               </span>
@@ -110,7 +110,7 @@ export function SummaryStep() {
           </div>
           {selectedConditionNames.length > 0 && (
             <div className="detail-card">
-              <h3>Health Conditions</h3>
+              <h3>{TEXT.HEADERS.HEALTH_CONDITIONS}</h3>
               <ul className="conditions-summary">
                 {selectedConditionNames.map((name, index) => (
                   <li key={index}>{name}</li>

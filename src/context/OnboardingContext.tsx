@@ -21,6 +21,12 @@ function loadState(): OnboardingState {
     }
   } catch (error) {
     console.warn('Failed to load state from localStorage:', error);
+    // Clear invalid data from localStorage
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (clearError) {
+      // Ignore errors when clearing
+    }
   }
   return initialState;
 }

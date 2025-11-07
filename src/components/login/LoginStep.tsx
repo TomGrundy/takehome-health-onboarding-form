@@ -1,7 +1,7 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useMemo } from 'react';
 import { login } from '../../../assets/auth';
 import { useOnboarding } from '../../context/OnboardingContext';
-import { STORAGE_KEYS, ACTION_TYPES, STEPS, UI_STRINGS } from '../../constants';
+import { STORAGE_KEYS, ACTION_TYPES, STEPS, UI_STRINGS, TEXT } from '../../constants';
 import './LoginStep.css';
 
 // Email validation regex pattern
@@ -9,10 +9,10 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validateEmail(email: string): string | null {
   if (!email.trim()) {
-    return 'Email is required';
+    return TEXT.MESSAGES.EMAIL_REQUIRED;
   }
   if (!EMAIL_REGEX.test(email)) {
-    return 'Please enter a valid email address';
+    return TEXT.MESSAGES.EMAIL_INVALID;
   }
   return null;
 }
@@ -39,6 +39,12 @@ export function LoginStep() {
     setEmailError(validationError);
   };
 
+  // Check if form is valid
+  const isFormValid = useMemo(() => {
+    const emailValidationError = validateEmail(email);
+    return !emailValidationError && password.trim().length > 0;
+  }, [email, password]);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -58,7 +64,7 @@ export function LoginStep() {
       dispatch({ type: ACTION_TYPES.SET_USER, payload: user });
       dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.MEMBERSHIP });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError(err instanceof Error ? err.message : TEXT.MESSAGES.LOGIN_FAILED);
     } finally {
       setLoading(false);
     }
@@ -66,10 +72,10 @@ export function LoginStep() {
 
   return (
     <div className="login-step">
-      <h2>Create Your Account</h2>
+      <h2>{TEXT.HEADERS.CREATE_YOUR_ACCOUNT}</h2>
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{TEXT.LABELS.EMAIL}</label>
           <input
             id="email"
             type="email"
@@ -89,7 +95,7 @@ export function LoginStep() {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{TEXT.LABELS.PASSWORD}</label>
           <input
             id="password"
             type="password"
@@ -101,7 +107,7 @@ export function LoginStep() {
           />
         </div>
         {error && <div className="error-message">{error}</div>}
-        <button type="submit" disabled={loading} className="submit-button">
+        <button type="submit" disabled={loading || !isFormValid} className="submit-button">
           {loading ? UI_STRINGS.BUTTONS.LOGGING_IN : UI_STRINGS.BUTTONS.CONTINUE}
         </button>
       </form>

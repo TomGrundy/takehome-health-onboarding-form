@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { CreditCardData } from '../../types';
-import { ACTION_TYPES, STEPS, UI_STRINGS, CREDIT_CARD_LIMITS } from '../../constants';
+import { ACTION_TYPES, STEPS, UI_STRINGS, CREDIT_CARD_LIMITS, TEXT } from '../../constants';
 import './CreditCardStep.css';
 
 export function CreditCardStep() {
@@ -58,10 +58,10 @@ export function CreditCardStep() {
 
   return (
     <div className="credit-card-step">
-      <h2>Payment Information</h2>
+      <h2>{TEXT.HEADERS.PAYMENT_INFORMATION}</h2>
       <form onSubmit={handleSubmit} className="credit-card-form">
         <div className="form-group">
-          <label htmlFor="cardholderName">Cardholder Name</label>
+          <label htmlFor="cardholderName">{TEXT.LABELS.CARDHOLDER_NAME}</label>
           <input
             id="cardholderName"
             name="cardholderName"
@@ -73,7 +73,7 @@ export function CreditCardStep() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="cardNumber">Card Number</label>
+          <label htmlFor="cardNumber">{TEXT.LABELS.CARD_NUMBER}</label>
           <input
             id="cardNumber"
             name="cardNumber"
@@ -87,7 +87,7 @@ export function CreditCardStep() {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="expiryDate">Expiry Date</label>
+            <label htmlFor="expiryDate">{TEXT.LABELS.EXPIRY_DATE}</label>
             <input
               id="expiryDate"
               name="expiryDate"
@@ -100,7 +100,7 @@ export function CreditCardStep() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="cvv">CVV</label>
+            <label htmlFor="cvv">{TEXT.LABELS.CVV}</label>
             <input
               id="cvv"
               name="cvv"

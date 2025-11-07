@@ -54,7 +54,7 @@
   padding: 0;
   z-index: 10;
   transition: all var(--transition-normal);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--color-shadow-medium);
 }
 
 .carousel-button span {
@@ -65,9 +65,9 @@
 
 .carousel-button:hover:not(:disabled) {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-white);
   border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 147, 211, 0.3);
+  box-shadow: 0 4px 12px var(--color-shadow-primary-medium);
 }
 
 .carousel-button:disabled {
@@ -96,7 +96,7 @@
 
 .tier-card:hover {
   border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 147, 211, 0.15);
+  box-shadow: 0 4px 12px var(--color-shadow-primary-light);
 }
 
 .tier-card.selected {
@@ -171,7 +171,7 @@
 .select-button {
   padding: 0.75rem var(--spacing-lg);
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-white);
   border: none;
   border-radius: var(--radius-sm);
   font-size: 1rem;

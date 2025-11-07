@@ -36,6 +36,24 @@
   /* Disabled Colors */
   --color-disabled: #ccc;
   
+  /* Base Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  
+  /* Shadow Colors */
+  --color-shadow-light: rgba(0, 0, 0, 0.08);
+  --color-shadow-medium: rgba(0, 0, 0, 0.1);
+  --color-shadow-primary-light: rgba(0, 147, 211, 0.15);
+  --color-shadow-primary-medium: rgba(0, 147, 211, 0.3);
+  --color-overlay-white: rgba(255, 255, 255, 0.9);
+  
+  /* Gradient Colors */
+  --color-gradient-start: #f5f5f5;
+  --color-gradient-mid: #e8f4f8;
+  --color-gradient-end: #f0f8fa;
+  --color-gradient-step-start: #f8f9fa;
+  --color-gradient-step-end: #f0f4f7;
+  
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -67,7 +85,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e8f4f8 50%, #f0f8fa 100%);
+  background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 50%, var(--color-gradient-end) 100%);
   background-attachment: fixed;
   color: var(--color-text-primary);
 }

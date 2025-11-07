@@ -1,7 +1,7 @@
 import React from 'react';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { logout } from '../../../assets/auth';
-import { STORAGE_KEYS, ACTION_TYPES, STEPS, STEP_NAMES, UI_STRINGS } from '../../constants';
+import { STORAGE_KEYS, ACTION_TYPES, STEPS, STEP_NAMES, UI_STRINGS, TEXT } from '../../constants';
 import './Header.css';
 
 export function Header() {
@@ -18,11 +18,11 @@ export function Header() {
   return (
     <header className="app-header">
       <div className="header-content">
-        <h1 className="header-title">Gym Membership Onboarding</h1>
+        <h1 className="header-title">{TEXT.HEADERS.GYM_MEMBERSHIP_ONBOARDING}</h1>
         {state.user && (
           <div className="header-actions">
             <span className="user-info">
-              Welcome, {state.user.name}
+              {TEXT.MESSAGES.WELCOME_USER.replace('{name}', state.user.name)}
             </span>
             <button onClick={handleLogout} className="logout-button">
               {UI_STRINGS.BUTTONS.LOGOUT}

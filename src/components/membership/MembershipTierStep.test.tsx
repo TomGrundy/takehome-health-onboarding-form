@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReactNode } from 'react';
 import { MembershipTierStep } from './MembershipTierStep';
@@ -51,7 +51,9 @@ describe('MembershipTierStep', () => {
     );
     
     const selectButtons = screen.getAllByText(/select plan/i);
-    await userEvent.click(selectButtons[0]);
+    await act(async () => {
+      await userEvent.click(selectButtons[0]);
+    });
 
     await waitFor(() => {
       const contextState = JSON.parse(
@@ -74,7 +76,9 @@ describe('MembershipTierStep', () => {
     );
     
     const selectButtons = screen.getAllByText(/select plan/i);
-    await userEvent.click(selectButtons[0]);
+    await act(async () => {
+      await userEvent.click(selectButtons[0]);
+    });
 
     await waitFor(() => {
       const contextState = JSON.parse(
@@ -90,7 +94,9 @@ describe('MembershipTierStep', () => {
     const selectButtons = screen.getAllByText(/select plan/i);
     const firstTierCard = selectButtons[0].closest('.tier-card');
     
-    await userEvent.click(selectButtons[0]);
+    await act(async () => {
+      await userEvent.click(selectButtons[0]);
+    });
 
     await waitFor(() => {
       expect(firstTierCard).toHaveClass('selected');

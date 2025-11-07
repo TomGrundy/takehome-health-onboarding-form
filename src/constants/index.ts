@@ -90,3 +90,51 @@ export const HEALTH_CONDITIONS = {
   DEFAULT_CATEGORY: 'other',
 } as const;
 
+// Text Strings for Internationalization
+export const TEXT = {
+  // Headers and Titles
+  HEADERS: {
+    GYM_MEMBERSHIP_ONBOARDING: 'Gym Membership Onboarding',
+    CREATE_YOUR_ACCOUNT: 'Create Your Account',
+    SELECT_YOUR_MEMBERSHIP_TIER: 'Select Your Membership Tier',
+    PAYMENT_INFORMATION: 'Payment Information',
+    HEALTH_INFORMATION: 'Health Information',
+    WELCOME_MEMBERSHIP_READY: 'Welcome! Your Membership is Ready',
+    YOUR_MEMBERSHIP_QR_CODE: 'Your Membership QR Code',
+    MEMBER_INFORMATION: 'Member Information',
+    MEMBERSHIP_PLAN: 'Membership Plan',
+    HEALTH_CONDITIONS: 'Health Conditions',
+  },
+  // Labels
+  LABELS: {
+    EMAIL: 'Email',
+    PASSWORD: 'Password',
+    CARDHOLDER_NAME: 'Cardholder Name',
+    CARD_NUMBER: 'Card Number',
+    EXPIRY_DATE: 'Expiry Date',
+    CVV: 'CVV',
+    NAME: 'Name:',
+    EMAIL_LABEL: 'Email:',
+    MEMBER_SINCE: 'Member Since:',
+    TIER: 'Tier:',
+    PRICE: 'Price:',
+    ACCESS_HOURS: 'Access Hours:',
+    ACCESS_HOURS_PREFIX: 'Access Hours: ',
+  },
+  // Messages
+  MESSAGES: {
+    WELCOME_USER: 'Welcome, {name}',
+    LOGIN_FAILED: 'Login failed',
+    EMAIL_REQUIRED: 'Email is required',
+    EMAIL_INVALID: 'Please enter a valid email address',
+    HEALTH_CONDITIONS_SUBTITLE: 'Please select any health conditions that apply to you. This information helps us provide appropriate guidance and ensure your safety.',
+    QR_CODE_DESCRIPTION: 'Scan this QR code at the gym to access facilities',
+    MONTH: 'month',
+  },
+  // Aria Labels
+  ARIA_LABELS: {
+    PREVIOUS_TIER: 'Previous tier',
+    NEXT_TIER: 'Next tier',
+  },
+} as const;
+

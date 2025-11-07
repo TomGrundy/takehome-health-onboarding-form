@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { HealthCondition } from '../../types';
 import healthConditionsData from '../../../assets/health-conditions.json';
-import { ACTION_TYPES, STEPS, UI_STRINGS, HEALTH_CONDITIONS } from '../../constants';
+import { ACTION_TYPES, STEPS, UI_STRINGS, HEALTH_CONDITIONS, TEXT } from '../../constants';
 import './HealthConditionsStep.css';
 
 const healthConditions: HealthCondition[] = healthConditionsData as HealthCondition[];
@@ -77,10 +77,9 @@ export function HealthConditionsStep() {
 
   return (
     <div className="health-conditions-step">
-      <h2>Health Information</h2>
+      <h2>{TEXT.HEADERS.HEALTH_INFORMATION}</h2>
       <p className="subtitle">
-        Please select any health conditions that apply to you. This information
-        helps us provide appropriate guidance and ensure your safety.
+        {TEXT.MESSAGES.HEALTH_CONDITIONS_SUBTITLE}
       </p>
       <div className="conditions-container">
         {Object.entries(groupedConditions).map(([category, conditions]) => (
