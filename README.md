@@ -24,7 +24,7 @@ Please make sure that the form goes through the following flow:
 - The final step will be a page that shows a mock QR code and the information they selected in the prior steps.
 - Each step should persist the prior selections in localstorage until a user clicks a logout button in the header of the page.
 
-## original readme (with an inventory of things in)
+## original readme (with an inventory of things the work I added at the bottom)
 
 ## Overview
 
