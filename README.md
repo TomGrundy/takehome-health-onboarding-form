@@ -218,7 +218,7 @@ health-onboarding-form/
 
 ### Testing
 
-Tests are colocated with components in `__tests__` directories. Tests cover:
+Tests are colocated with components. Tests cover:
 - Component rendering
 - User interactions
 - State management
