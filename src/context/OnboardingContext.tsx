@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { OnboardingState, OnboardingAction } from '../types';
+import { STORAGE_KEYS, ACTION_TYPES } from '../constants';
 
-const STORAGE_KEY = 'onboarding_state';
+const STORAGE_KEY = STORAGE_KEYS.ONBOARDING_STATE;
 
 const initialState: OnboardingState = {
   step: 1,
@@ -36,17 +37,17 @@ function onboardingReducer(
   action: OnboardingAction
 ): OnboardingState {
   switch (action.type) {
-    case 'SET_STEP':
+    case ACTION_TYPES.SET_STEP:
       return { ...state, step: action.payload };
-    case 'SET_USER':
+    case ACTION_TYPES.SET_USER:
       return { ...state, user: action.payload };
-    case 'SET_MEMBERSHIP_TIER':
+    case ACTION_TYPES.SET_MEMBERSHIP_TIER:
       return { ...state, selectedMembershipTier: action.payload };
-    case 'SET_CREDIT_CARD':
+    case ACTION_TYPES.SET_CREDIT_CARD:
       return { ...state, creditCardData: action.payload };
-    case 'SET_HEALTH_CONDITIONS':
+    case ACTION_TYPES.SET_HEALTH_CONDITIONS:
       return { ...state, selectedHealthConditions: action.payload };
-    case 'RESET':
+    case ACTION_TYPES.RESET:
       return initialState;
     default:
       return state;

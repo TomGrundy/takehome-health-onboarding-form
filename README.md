@@ -1,5 +1,27 @@
 # Health Onboarding Form - Coding Challenge
 
+# Thomas's Notes:
+In order to make sure I'm not blowing out the two hour time limit, here's some notes on parts I would have given more attention to if I had a longer time-limit:
+- The tests are present and passing, and I've given them a look over, but not the full meticulous review I would give them, given I fundamentally don't trust AI tests. So the tests are there, and from a quick glance look okay, but do not trust their lies! 🤣
+
+# Initial prompt used:
+
+Could you please, using the following technologies, implement a solution to this multistep health onboarding form: 
+React, 
+TypeScript, 
+react context for state management, 
+webpack, 
+appropriate linting rules, 
+working jest tests that are colocated with the files & functions they test, that appropriately test functionality.
+
+Please make sure that the form goes through the following flow:
+- first prompt a user to create an account, by providing a username and password, and call the `login()` function in @auth.ts, and use the data returned from that response.
+- next the user will select their membership tier, using the data from @membership-tiers.json, on a page that displays all of the membership tiers, the price, their features, and other relevant information
+- The user will then be prompted to input a dummy credit card into a credit card form that will accept any numbers as valid, and pass them onto the next step
+- The next step will be the user inputting their health conditions, generated from the json list in @health-conditions.json.
+- The final step will be a page that shows a mock QR code and the information they selected in the prior steps.
+- Each step should persist the prior selections in localstorage until a user clicks a logout button in the header of the page.
+
 ## Overview
 
 Build a multi-step registration form for new gym members. Users need to provide information across multiple steps before completing their sign up. This challenge is designed to be completed within **2 hours** and focuses on React component architecture, state management, form handling, validation, and user experience.
@@ -170,22 +192,3 @@ Tests are colocated with components in `__tests__` directories. Tests cover:
 - **ESLint**: Code linting
 - **React Context API**: State management
 - **CSS**: Styling (no CSS-in-JS framework)
-
-
-Prompt used:
-
-Could you please, using the following technologies, implement a solution to this multistep health onboarding form: 
-React, 
-TypeScript, 
-react context for state management, 
-webpack, 
-appropriate linting rules, 
-working jest tests that are colocated with the files & functions they test, that appropriately test functionality.
-
-Please make sure that the form goes through the following flow:
-- first prompt a user to create an account, by providing a username and password, and call the `login()` function in @auth.ts, and use the data returned from that response.
-- next the user will select their membership tier, using the data from @membership-tiers.json, on a page that displays all of the membership tiers, the price, their features, and other relevant information
-- The user will then be prompted to input a dummy credit card into a credit card form that will accept any numbers as valid, and pass them onto the next step
-- The next step will be the user inputting their health conditions, generated from the json list in @health-conditions.json.
-- The final step will be a page that shows a mock QR code and the information they selected in the prior steps.
-- Each step should persist the prior selections in localstorage until a user clicks a logout button in the header of the page.

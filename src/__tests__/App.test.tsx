@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from '../App';
 import { login } from '../../assets/auth';
@@ -39,9 +39,15 @@ describe('App', () => {
     const passwordInput = screen.getByLabelText(/password/i);
     const submitButton = screen.getByRole('button', { name: /continue/i });
 
-    await userEvent.type(emailInput, 'test@example.com');
-    await userEvent.type(passwordInput, 'password123');
-    await userEvent.click(submitButton);
+    await act(async () => {
+      await userEvent.type(emailInput, 'test@example.com');
+    });
+    await act(async () => {
+      await userEvent.type(passwordInput, 'password123');
+    });
+    await act(async () => {
+      await userEvent.click(submitButton);
+    });
 
     await waitFor(() => {
       expect(screen.getByText(/select your membership tier/i)).toBeInTheDocument();

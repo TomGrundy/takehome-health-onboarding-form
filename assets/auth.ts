@@ -139,6 +139,8 @@ export function getCurrentUser(): User | null {
     return null;
   }
 
+  // Note: Using string literal here to avoid circular dependency with constants
+  // The constant STORAGE_KEYS.AUTH_TOKEN should be used in components instead
   const token = localStorage.getItem("auth_token");
   if (!token) return null;
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useOnboarding } from '../context/OnboardingContext';
-import { HealthCondition } from '../types';
-import healthConditionsData from '../../assets/health-conditions.json';
-import { UI_STRINGS, QR_CODE } from '../constants';
+import { useOnboarding } from '../../context/OnboardingContext';
+import { HealthCondition } from '../../types';
+import healthConditionsData from '../../../assets/health-conditions.json';
+import { UI_STRINGS, QR_CODE } from '../../constants';
 import './SummaryStep.css';
 
 const healthConditions: HealthCondition[] = healthConditionsData as HealthCondition[];

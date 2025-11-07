@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useOnboarding } from '../context/OnboardingContext';
-import { HealthCondition } from '../types';
-import healthConditionsData from '../../assets/health-conditions.json';
-import { ACTION_TYPES, STEPS, UI_STRINGS, HEALTH_CONDITIONS } from '../constants';
+import { useOnboarding } from '../../context/OnboardingContext';
+import { HealthCondition } from '../../types';
+import healthConditionsData from '../../../assets/health-conditions.json';
+import { ACTION_TYPES, STEPS, UI_STRINGS, HEALTH_CONDITIONS } from '../../constants';
 import './HealthConditionsStep.css';
 
 const healthConditions: HealthCondition[] = healthConditionsData as HealthCondition[];
@@ -94,18 +94,24 @@ export function HealthConditionsStep() {
                 const isNoneCondition = condition.id === NONE_CONDITION_ID;
                 const isDisabled = isNoneSelected && !isNoneCondition;
                 
+                // When "None" is selected, show previous selections visually but don't store them
+                // When "None" is not selected, use the actual selectedConditions
+                const isChecked = isNoneSelected && !isNoneCondition
+                  ? previousSelections.includes(condition.id)
+                  : selectedConditions.includes(condition.id);
+                
                 return (
                   <label
                     key={condition.id}
                     className={`condition-item ${
-                      selectedConditions.includes(condition.id) ? 'selected' : ''
+                      isChecked ? 'selected' : ''
                     } ${condition.requiresMedicalClearance ? 'requires-clearance' : ''} ${
                       isDisabled ? 'disabled' : ''
                     }`}
                   >
                     <input
                       type="checkbox"
-                      checked={selectedConditions.includes(condition.id)}
+                      checked={isChecked}
                       onChange={() => handleToggleCondition(condition.id)}
                       disabled={isDisabled}
                     />
@@ -120,7 +126,11 @@ export function HealthConditionsStep() {
           </div>
         ))}
       </div>
-      <button onClick={handleContinue} className="continue-button">
+      <button 
+        onClick={handleContinue} 
+        className="continue-button"
+        disabled={selectedConditions.length === 0}
+      >
         {UI_STRINGS.BUTTONS.CONTINUE}
       </button>
     </div>

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReactNode } from 'react';
-import { MembershipTierStep } from '../MembershipTierStep';
+import { MembershipTierStep } from './MembershipTierStep';
 import { OnboardingProvider, useOnboarding } from '../../context/OnboardingContext';
 
 const wrapper = ({ children }: { children: ReactNode }) => (

@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { OnboardingProvider, useOnboarding } from '../OnboardingContext';
 import { ReactNode } from 'react';
+import { ACTION_TYPES, STEPS, STORAGE_KEYS } from '../../constants';
 
 const wrapper = ({ children }: { children: ReactNode }) => (
   <OnboardingProvider>{children}</OnboardingProvider>
@@ -13,7 +14,7 @@ describe('OnboardingContext', () => {
 
   it('should provide initial state', () => {
     const { result } = renderHook(() => useOnboarding(), { wrapper });
-    expect(result.current.state.step).toBe(1);
+    expect(result.current.state.step).toBe(STEPS.LOGIN);
     expect(result.current.state.user).toBeNull();
     expect(result.current.state.selectedMembershipTier).toBeNull();
     expect(result.current.state.creditCardData).toBeNull();
@@ -23,9 +24,9 @@ describe('OnboardingContext', () => {
   it('should update step', () => {
     const { result } = renderHook(() => useOnboarding(), { wrapper });
     act(() => {
-      result.current.dispatch({ type: 'SET_STEP', payload: 2 });
+      result.current.dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.MEMBERSHIP });
     });
-    expect(result.current.state.step).toBe(2);
+    expect(result.current.state.step).toBe(STEPS.MEMBERSHIP);
   });
 
   it('should set user', () => {
@@ -38,7 +39,7 @@ describe('OnboardingContext', () => {
       memberSince: '2024-01-01',
     };
     act(() => {
-      result.current.dispatch({ type: 'SET_USER', payload: user });
+      result.current.dispatch({ type: ACTION_TYPES.SET_USER, payload: user });
     });
     expect(result.current.state.user).toEqual(user);
   });
@@ -54,7 +55,7 @@ describe('OnboardingContext', () => {
       accessHours: '24/7',
     };
     act(() => {
-      result.current.dispatch({ type: 'SET_MEMBERSHIP_TIER', payload: tier });
+      result.current.dispatch({ type: ACTION_TYPES.SET_MEMBERSHIP_TIER, payload: tier });
     });
     expect(result.current.state.selectedMembershipTier).toEqual(tier);
   });
@@ -68,7 +69,7 @@ describe('OnboardingContext', () => {
       cardholderName: 'John Doe',
     };
     act(() => {
-      result.current.dispatch({ type: 'SET_CREDIT_CARD', payload: creditCardData });
+      result.current.dispatch({ type: ACTION_TYPES.SET_CREDIT_CARD, payload: creditCardData });
     });
     expect(result.current.state.creditCardData).toEqual(creditCardData);
   });
@@ -77,7 +78,7 @@ describe('OnboardingContext', () => {
     const { result } = renderHook(() => useOnboarding(), { wrapper });
     const conditions = ['heart-disease', 'diabetes'];
     act(() => {
-      result.current.dispatch({ type: 'SET_HEALTH_CONDITIONS', payload: conditions });
+      result.current.dispatch({ type: ACTION_TYPES.SET_HEALTH_CONDITIONS, payload: conditions });
     });
     expect(result.current.state.selectedHealthConditions).toEqual(conditions);
   });
@@ -85,32 +86,32 @@ describe('OnboardingContext', () => {
   it('should persist state to localStorage', () => {
     const { result } = renderHook(() => useOnboarding(), { wrapper });
     act(() => {
-      result.current.dispatch({ type: 'SET_STEP', payload: 3 });
+      result.current.dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.PAYMENT });
     });
-    const stored = localStorage.getItem('onboarding_state');
+    const stored = localStorage.getItem(STORAGE_KEYS.ONBOARDING_STATE);
     expect(stored).toBeTruthy();
     if (stored) {
       const parsed = JSON.parse(stored);
-      expect(parsed.step).toBe(3);
+      expect(parsed.step).toBe(STEPS.PAYMENT);
     }
   });
 
   it('should load state from localStorage', () => {
     const savedState = {
-      step: 2,
+      step: STEPS.MEMBERSHIP,
       user: null,
       selectedMembershipTier: null,
       creditCardData: null,
       selectedHealthConditions: [],
     };
-    localStorage.setItem('onboarding_state', JSON.stringify(savedState));
+    localStorage.setItem(STORAGE_KEYS.ONBOARDING_STATE, JSON.stringify(savedState));
     const { result } = renderHook(() => useOnboarding(), { wrapper });
-    expect(result.current.state.step).toBe(2);
+    expect(result.current.state.step).toBe(STEPS.MEMBERSHIP);
   });
 
   it('should load complete state from localStorage', () => {
     const savedState = {
-      step: 3,
+      step: STEPS.PAYMENT,
       user: {
         id: '123',
         email: 'test@example.com',
@@ -134,9 +135,9 @@ describe('OnboardingContext', () => {
       },
       selectedHealthConditions: ['heart-disease'],
     };
-    localStorage.setItem('onboarding_state', JSON.stringify(savedState));
+    localStorage.setItem(STORAGE_KEYS.ONBOARDING_STATE, JSON.stringify(savedState));
     const { result } = renderHook(() => useOnboarding(), { wrapper });
-    expect(result.current.state.step).toBe(3);
+    expect(result.current.state.step).toBe(STEPS.PAYMENT);
     expect(result.current.state.user).toEqual(savedState.user);
     expect(result.current.state.selectedMembershipTier).toEqual(savedState.selectedMembershipTier);
     expect(result.current.state.creditCardData).toEqual(savedState.creditCardData);
@@ -146,17 +147,17 @@ describe('OnboardingContext', () => {
   it('should reset state', () => {
     const { result } = renderHook(() => useOnboarding(), { wrapper });
     act(() => {
-      result.current.dispatch({ type: 'SET_STEP', payload: 5 });
-      result.current.dispatch({ type: 'SET_USER', payload: {
+      result.current.dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.SUMMARY });
+      result.current.dispatch({ type: ACTION_TYPES.SET_USER, payload: {
         id: '123',
         email: 'test@example.com',
         name: 'Test User',
         membershipType: 'premium' as const,
         memberSince: '2024-01-01',
       } });
-      result.current.dispatch({ type: 'RESET' });
+      result.current.dispatch({ type: ACTION_TYPES.RESET });
     });
-    expect(result.current.state.step).toBe(1);
+    expect(result.current.state.step).toBe(STEPS.LOGIN);
     expect(result.current.state.user).toBeNull();
     expect(result.current.state.selectedMembershipTier).toBeNull();
     expect(result.current.state.creditCardData).toBeNull();
@@ -164,10 +165,10 @@ describe('OnboardingContext', () => {
   });
 
   it('should handle invalid localStorage data gracefully', () => {
-    localStorage.setItem('onboarding_state', 'invalid json');
+    localStorage.setItem(STORAGE_KEYS.ONBOARDING_STATE, 'invalid json');
     const { result } = renderHook(() => useOnboarding(), { wrapper });
     // Should fall back to initial state
-    expect(result.current.state.step).toBe(1);
+    expect(result.current.state.step).toBe(STEPS.LOGIN);
     expect(result.current.state.user).toBeNull();
   });
 
@@ -180,10 +181,10 @@ describe('OnboardingContext', () => {
 
     const { result } = renderHook(() => useOnboarding(), { wrapper });
     act(() => {
-      result.current.dispatch({ type: 'SET_STEP', payload: 2 });
+      result.current.dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.MEMBERSHIP });
     });
     // Should still update state even if localStorage fails
-    expect(result.current.state.step).toBe(2);
+    expect(result.current.state.step).toBe(STEPS.MEMBERSHIP);
 
     localStorage.setItem = originalSetItem;
   });

@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useOnboarding } from '../context/OnboardingContext';
-import { MembershipTier } from '../types';
-import membershipTiersData from '../../assets/membership-tiers.json';
-import { ACTION_TYPES, STEPS, UI_STRINGS, CAROUSEL } from '../constants';
+import { useOnboarding } from '../../context/OnboardingContext';
+import { MembershipTier } from '../../types';
+import membershipTiersData from '../../../assets/membership-tiers.json';
+import { ACTION_TYPES, STEPS, UI_STRINGS, CAROUSEL } from '../../constants';
 import './MembershipTierStep.css';
 
 const membershipTiers: MembershipTier[] = membershipTiersData as MembershipTier[];

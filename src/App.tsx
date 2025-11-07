@@ -1,11 +1,12 @@
 import React from 'react';
 import { OnboardingProvider, useOnboarding } from './context/OnboardingContext';
-import { Header } from './components/Header';
-import { LoginStep } from './components/LoginStep';
-import { MembershipTierStep } from './components/MembershipTierStep';
-import { CreditCardStep } from './components/CreditCardStep';
-import { HealthConditionsStep } from './components/HealthConditionsStep';
-import { SummaryStep } from './components/SummaryStep';
+import { Header } from './components/shared/Header';
+import { LoginStep } from './components/login/LoginStep';
+import { MembershipTierStep } from './components/membership/MembershipTierStep';
+import { CreditCardStep } from './components/payment/CreditCardStep';
+import { HealthConditionsStep } from './components/health-info/HealthConditionsStep';
+import { SummaryStep } from './components/summary/SummaryStep';
+import { STEPS } from './constants';
 import './App.css';
 
 function AppContent() {
@@ -13,15 +14,15 @@ function AppContent() {
 
   const renderStep = () => {
     switch (state.step) {
-      case 1:
+      case STEPS.LOGIN:
         return <LoginStep />;
-      case 2:
+      case STEPS.MEMBERSHIP:
         return <MembershipTierStep />;
-      case 3:
+      case STEPS.PAYMENT:
         return <CreditCardStep />;
-      case 4:
+      case STEPS.HEALTH_INFO:
         return <HealthConditionsStep />;
-      case 5:
+      case STEPS.SUMMARY:
         return <SummaryStep />;
       default:
         return <LoginStep />;

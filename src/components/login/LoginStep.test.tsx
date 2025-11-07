@@ -1,7 +1,7 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReactNode } from 'react';
-import { LoginStep } from '../LoginStep';
+import { LoginStep } from './LoginStep';
 import { OnboardingProvider, useOnboarding } from '../../context/OnboardingContext';
 import { login } from '../../../assets/auth';
 import { STORAGE_KEYS } from '../../constants';

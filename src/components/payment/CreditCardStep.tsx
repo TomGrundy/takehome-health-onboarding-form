@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { useOnboarding } from '../context/OnboardingContext';
-import { CreditCardData } from '../types';
-import { ACTION_TYPES, STEPS, UI_STRINGS, CREDIT_CARD_LIMITS } from '../constants';
+import { useOnboarding } from '../../context/OnboardingContext';
+import { CreditCardData } from '../../types';
+import { ACTION_TYPES, STEPS, UI_STRINGS, CREDIT_CARD_LIMITS } from '../../constants';
 import './CreditCardStep.css';
 
 export function CreditCardStep() {
@@ -18,7 +18,10 @@ export function CreditCardStep() {
     let formattedValue = value;
 
     if (name === 'cardNumber') {
-      formattedValue = value.replace(/\D/g, '').slice(0, CREDIT_CARD_LIMITS.CARD_NUMBER_LENGTH);
+      // Remove all non-digits and limit to 16 digits
+      const digits = value.replace(/\D/g, '').slice(0, CREDIT_CARD_LIMITS.CARD_NUMBER_LENGTH);
+      // Add space every 4 digits
+      formattedValue = digits.replace(/(\d{4})(?=\d)/g, '$1 ');
     } else if (name === 'expiryDate') {
       formattedValue = value.replace(/\D/g, '').slice(0, CREDIT_CARD_LIMITS.EXPIRY_DATE_LENGTH);
       if (formattedValue.length >= 2) {
@@ -33,9 +36,25 @@ export function CreditCardStep() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch({ type: ACTION_TYPES.SET_CREDIT_CARD, payload: formData });
+    // Strip spaces from card number before storing
+    const cardDataToStore = {
+      ...formData,
+      cardNumber: formData.cardNumber.replace(/\s/g, ''),
+    };
+    dispatch({ type: ACTION_TYPES.SET_CREDIT_CARD, payload: cardDataToStore });
     dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.HEALTH_INFO });
   };
+
+  // Validate credit card form
+  const cardNumberDigits = formData.cardNumber.replace(/\D/g, '');
+  const expiryDateDigits = formData.expiryDate.replace(/\D/g, '');
+  
+  const isFormValid =
+    formData.cardholderName.trim().length > 0 &&
+    cardNumberDigits.length === CREDIT_CARD_LIMITS.CARD_NUMBER_LENGTH &&
+    expiryDateDigits.length === CREDIT_CARD_LIMITS.EXPIRY_DATE_LENGTH &&
+    formData.expiryDate.length === CREDIT_CARD_LIMITS.EXPIRY_DATE_DISPLAY_LENGTH &&
+    formData.cvv.length === CREDIT_CARD_LIMITS.CVV_LENGTH;
 
   return (
     <div className="credit-card-step">
@@ -94,7 +113,7 @@ export function CreditCardStep() {
             />
           </div>
         </div>
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" disabled={!isFormValid}>
           {UI_STRINGS.BUTTONS.CONTINUE}
         </button>
       </form>

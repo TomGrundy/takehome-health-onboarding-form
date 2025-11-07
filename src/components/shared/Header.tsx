@@ -1,7 +1,7 @@
 import React from 'react';
-import { useOnboarding } from '../context/OnboardingContext';
-import { logout } from '../../assets/auth';
-import { STORAGE_KEYS, ACTION_TYPES, STEPS, STEP_NAMES, UI_STRINGS } from '../constants';
+import { useOnboarding } from '../../context/OnboardingContext';
+import { logout } from '../../../assets/auth';
+import { STORAGE_KEYS, ACTION_TYPES, STEPS, STEP_NAMES, UI_STRINGS } from '../../constants';
 import './Header.css';
 
 export function Header() {

@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from 'react';
-import { login } from '../../assets/auth';
-import { useOnboarding } from '../context/OnboardingContext';
-import { STORAGE_KEYS, ACTION_TYPES, STEPS, UI_STRINGS } from '../constants';
+import { login } from '../../../assets/auth';
+import { useOnboarding } from '../../context/OnboardingContext';
+import { STORAGE_KEYS, ACTION_TYPES, STEPS, UI_STRINGS } from '../../constants';
 import './LoginStep.css';
 
 // Email validation regex pattern

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { ReactNode } from 'react';
-import { SummaryStep } from '../SummaryStep';
+import { SummaryStep } from './SummaryStep';
 import { OnboardingProvider } from '../../context/OnboardingContext';
 
 const wrapper = ({ children }: { children: ReactNode }) => (

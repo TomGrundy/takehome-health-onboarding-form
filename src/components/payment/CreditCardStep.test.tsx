@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReactNode } from 'react';
-import { CreditCardStep } from '../CreditCardStep';
+import { CreditCardStep } from './CreditCardStep';
 import { OnboardingProvider, useOnboarding } from '../../context/OnboardingContext';
 
 const wrapper = ({ children }: { children: ReactNode }) => (
@@ -37,28 +37,36 @@ describe('CreditCardStep', () => {
   it('should format card number input', async () => {
     render(<CreditCardStep />, { wrapper });
     const cardNumberInput = screen.getByLabelText(/card number/i);
-    await userEvent.type(cardNumberInput, '1234abcd5678');
-    expect(cardNumberInput).toHaveValue('12345678');
+    await act(async () => {
+      await userEvent.type(cardNumberInput, '1234abcd5678');
+    });
+    expect(cardNumberInput).toHaveValue('1234 5678');
   });
 
   it('should limit card number to 16 digits', async () => {
     render(<CreditCardStep />, { wrapper });
     const cardNumberInput = screen.getByLabelText(/card number/i);
-    await userEvent.type(cardNumberInput, '12345678901234567890');
-    expect(cardNumberInput).toHaveValue('1234567890123456');
+    await act(async () => {
+      await userEvent.type(cardNumberInput, '12345678901234567890');
+    });
+    expect(cardNumberInput).toHaveValue('1234 5678 9012 3456');
   });
 
   it('should format expiry date input', async () => {
     render(<CreditCardStep />, { wrapper });
     const expiryInput = screen.getByLabelText(/expiry date/i);
-    await userEvent.type(expiryInput, '1225');
+    await act(async () => {
+      await userEvent.type(expiryInput, '1225');
+    });
     expect(expiryInput).toHaveValue('12/25');
   });
 
   it('should limit CVV to 3 digits', async () => {
     render(<CreditCardStep />, { wrapper });
     const cvvInput = screen.getByLabelText(/cvv/i);
-    await userEvent.type(cvvInput, '12345');
+    await act(async () => {
+      await userEvent.type(cvvInput, '12345');
+    });
     expect(cvvInput).toHaveValue('123');
   });
 
@@ -99,11 +107,13 @@ describe('CreditCardStep', () => {
     const cvvInput = screen.getByLabelText(/cvv/i);
     const submitButton = screen.getByRole('button', { name: /continue/i });
 
-    await userEvent.type(cardholderInput, 'John Doe');
-    await userEvent.type(cardNumberInput, '1234567890123456');
-    await userEvent.type(expiryInput, '1225');
-    await userEvent.type(cvvInput, '123');
-    await userEvent.click(submitButton);
+    await act(async () => {
+      await userEvent.type(cardholderInput, 'John Doe');
+      await userEvent.type(cardNumberInput, '1234567890123456');
+      await userEvent.type(expiryInput, '1225');
+      await userEvent.type(cvvInput, '123');
+      await userEvent.click(submitButton);
+    });
 
     await waitFor(() => {
       const contextState = JSON.parse(
@@ -152,7 +162,9 @@ describe('CreditCardStep', () => {
     );
     const submitButton = screen.getByRole('button', { name: /continue/i });
 
-    await userEvent.click(submitButton);
+    await act(async () => {
+      await userEvent.click(submitButton);
+    });
 
     // HTML5 validation should prevent submission
     await waitFor(() => {
@@ -169,6 +181,37 @@ describe('CreditCardStep', () => {
     expect(screen.getByLabelText(/card number/i)).toBeRequired();
     expect(screen.getByLabelText(/expiry date/i)).toBeRequired();
     expect(screen.getByLabelText(/cvv/i)).toBeRequired();
+  });
+
+  it('should disable continue button when form is invalid', async () => {
+    render(<CreditCardStep />, { wrapper });
+    const submitButton = screen.getByRole('button', { name: /continue/i });
+    
+    // Button should be disabled when form is empty
+    expect(submitButton).toBeDisabled();
+    
+    // Button should be disabled with partial information
+    const cardholderInput = screen.getByLabelText(/cardholder name/i);
+    await act(async () => {
+      await userEvent.type(cardholderInput, 'John Doe');
+    });
+    expect(submitButton).toBeDisabled();
+    
+    // Button should be disabled with incomplete card number
+    const cardNumberInput = screen.getByLabelText(/card number/i);
+    await act(async () => {
+      await userEvent.type(cardNumberInput, '1234');
+    });
+    expect(submitButton).toBeDisabled();
+    
+    // Button should be enabled when all fields are valid
+    await act(async () => {
+      await userEvent.clear(cardNumberInput);
+      await userEvent.type(cardNumberInput, '1234567890123456');
+      await userEvent.type(screen.getByLabelText(/expiry date/i), '1225');
+      await userEvent.type(screen.getByLabelText(/cvv/i), '123');
+    });
+    expect(submitButton).not.toBeDisabled();
   });
 });
 

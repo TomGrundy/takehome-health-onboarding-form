@@ -1,25 +1,19 @@
-.credit-card-step {
-  max-width: 600px;
+.login-step {
+  max-width: 500px;
   margin: 0 auto;
   padding: var(--spacing-xl);
 }
 
-.credit-card-step h2 {
+.login-step h2 {
   margin-bottom: var(--spacing-xl);
   text-align: center;
   color: var(--color-text-primary);
 }
 
-.credit-card-form {
+.login-form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
 }
 
 .form-group {
@@ -46,6 +40,29 @@
   border-color: var(--color-border-focus);
 }
 
+.form-group input:disabled {
+  background-color: var(--color-bg-disabled);
+  cursor: not-allowed;
+}
+
+.form-group input[aria-invalid="true"] {
+  border-color: var(--color-error-border);
+}
+
+.field-error {
+  color: var(--color-error-text);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.error-message {
+  padding: 0.75rem;
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-error-border);
+}
+
 .submit-button {
   padding: 0.75rem var(--spacing-lg);
   background-color: var(--color-primary);
@@ -56,9 +73,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color var(--transition-fast);
-  margin-top: var(--spacing-md);
 }
 
-.submit-button:hover {
+.submit-button:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
+}
+
+.submit-button:disabled {
+  background-color: var(--color-disabled);
+  cursor: not-allowed;
+  border: 1px solid var(--color-border-default);
 }
