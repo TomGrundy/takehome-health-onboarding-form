@@ -1,65 +1,64 @@
 .credit-card-step {
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--spacing-xl);
 }
 
 .credit-card-step h2 {
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xl);
   text-align: center;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .credit-card-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: var(--spacing-md);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .form-group label {
   font-weight: 600;
-  color: #555;
+  color: var(--color-text-secondary);
 }
 
 .form-group input {
   padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
-  transition: border-color 0.2s;
+  transition: border-color var(--transition-fast);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: var(--color-border-focus);
 }
 
 .submit-button {
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
+  padding: 0.75rem var(--spacing-lg);
+  background-color: var(--color-primary);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 1rem;
+  transition: background-color var(--transition-fast);
+  margin-top: var(--spacing-md);
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-hover);
 }
-

@@ -1,39 +1,39 @@
 .health-conditions-step {
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--spacing-xl);
 }
 
 .health-conditions-step h2 {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
   text-align: center;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
   text-align: center;
-  color: #666;
-  margin-bottom: 2rem;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-xl);
   line-height: 1.6;
 }
 
 .conditions-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
 }
 
 .category-group {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background: #fafafa;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  background: var(--color-bg-light-1);
 }
 
 .category-title {
-  margin: 0 0 1rem 0;
-  color: #333;
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--color-text-primary);
   font-size: 1.25rem;
   text-transform: capitalize;
 }
@@ -48,22 +48,22 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  background: white;
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .condition-item:hover {
-  border-color: #007bff;
-  background-color: #f0f8ff;
+  border-color: var(--color-primary);
+  background-color: var(--color-light-blue-1);
 }
 
 .condition-item.selected {
-  border-color: #007bff;
-  background-color: #e7f3ff;
+  border-color: var(--color-primary);
+  background-color: var(--color-light-blue-2);
 }
 
 .condition-item input[type='checkbox'] {
@@ -75,36 +75,50 @@
 .condition-name {
   flex: 1;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .clearance-badge {
   font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  background-color: #ffc107;
-  color: #333;
-  border-radius: 12px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-round);
   font-weight: 600;
 }
 
 .condition-item.requires-clearance {
-  border-left: 4px solid #ffc107;
+  border-left: 4px solid var(--color-accent);
+}
+
+.condition-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-disabled);
+}
+
+.condition-item.disabled:hover {
+  border-color: var(--color-border-default);
+  background-color: var(--color-bg-disabled);
+}
+
+.condition-item.disabled input[type='checkbox'] {
+  cursor: not-allowed;
 }
 
 .continue-button {
   width: 100%;
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
+  padding: 0.75rem var(--spacing-lg);
+  background-color: var(--color-primary);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .continue-button:hover {
-  background-color: #0056b3;
+  background-color: var(--color-primary-hover);
 }
-

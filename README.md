@@ -172,6 +172,8 @@ Tests are colocated with components in `__tests__` directories. Tests cover:
 - **CSS**: Styling (no CSS-in-JS framework)
 
 
+Prompt used:
+
 Could you please, using the following technologies, implement a solution to this multistep health onboarding form: 
 React, 
 TypeScript, 

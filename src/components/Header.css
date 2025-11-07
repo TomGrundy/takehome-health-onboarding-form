@@ -1,8 +1,8 @@
 .app-header {
-  background: white;
-  border-bottom: 2px solid #e0e0e0;
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
+  background: var(--color-bg-card);
+  border-bottom: 2px solid var(--color-border-light);
+  padding: var(--spacing-md) var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
 }
 
 .header-content {
@@ -15,42 +15,42 @@
 
 .header-title {
   margin: 0;
-  color: #333;
+  color: var(--color-text-primary);
   font-size: 1.5rem;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-md);
 }
 
 .user-info {
-  color: #666;
+  color: var(--color-text-tertiary);
   font-size: 0.9rem;
 }
 
 .logout-button {
-  padding: 0.5rem 1rem;
-  background-color: #dc3545;
-  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-light-blue-3);
+  color: var(--color-text-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .logout-button:hover {
-  background-color: #c82333;
+  background-color: var(--color-light-blue-4);
 }
 
 .step-indicator {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -60,7 +60,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
   flex: 1;
   max-width: 150px;
   position: relative;
@@ -73,7 +73,7 @@
   left: 50%;
   width: 100%;
   height: 2px;
-  background-color: #e0e0e0;
+  background-color: var(--color-border-light);
   z-index: 0;
 }
 
@@ -81,60 +81,68 @@
   display: none;
 }
 
-.step-item.completed::after {
-  background-color: #28a745;
-}
-
 .step-number {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  background-color: #e0e0e0;
-  color: #666;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border-light);
+  color: var(--color-text-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   position: relative;
   z-index: 1;
-  transition: all 0.3s;
+  transition: all var(--transition-normal);
 }
 
 .step-item.active .step-number {
-  background-color: #007bff;
+  background-color: var(--color-primary);
   color: white;
 }
 
 .step-item.completed .step-number {
-  background-color: #28a745;
+  background-color: var(--color-accent);
   color: white;
 }
 
 .step-name {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--color-text-tertiary);
   text-align: center;
   font-weight: 500;
 }
 
 .step-item.active .step-name {
-  color: #007bff;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
 @media (max-width: 768px) {
   .header-content {
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: row;
+    gap: var(--spacing-md);
+  }
+
+  .header-title {
+    font-size: 1.2rem;
+    flex: 1;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .header-actions {
+    gap: var(--spacing-sm);
   }
 
   .step-indicator {
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
   }
 
   .step-name {
     font-size: 0.65rem;
   }
 }
-
