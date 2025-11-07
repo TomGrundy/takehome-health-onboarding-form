@@ -1,6 +1,7 @@
 import React from 'react';
 import { OnboardingProvider, useOnboarding } from './context/OnboardingContext';
 import { Header } from './components/shared/Header';
+import { LoadingSpinner } from './components/shared/LoadingSpinner';
 import { LoginStep } from './components/login/LoginStep';
 import { MembershipTierStep } from './components/membership/MembershipTierStep';
 import { CreditCardStep } from './components/payment/CreditCardStep';
@@ -10,7 +11,7 @@ import { STEPS } from './constants';
 import './App.css';
 
 function AppContent() {
-  const { state } = useOnboarding();
+  const { state, isVerifyingToken } = useOnboarding();
 
   const renderStep = () => {
     switch (state.step) {
@@ -31,6 +32,7 @@ function AppContent() {
 
   return (
     <div className="app">
+      {isVerifyingToken && <LoadingSpinner />}
       <Header />
       <main className="app-main">{renderStep()}</main>
     </div>

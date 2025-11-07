@@ -24,6 +24,8 @@ Please make sure that the form goes through the following flow:
 - The final step will be a page that shows a mock QR code and the information they selected in the prior steps.
 - Each step should persist the prior selections in localstorage until a user clicks a logout button in the header of the page.
 
+## original readme (with an inventory of things in)
+
 ## Overview
 
 Build a multi-step registration form for new gym members. Users need to provide information across multiple steps before completing their sign up. This challenge is designed to be completed within **2 hours** and focuses on React component architecture, state management, form handling, validation, and user experience.
@@ -134,28 +136,63 @@ This solution implements a multi-step health onboarding form using React, TypeSc
 
 ```
 health-onboarding-form/
-├── assets/              # Provided assets (auth.ts, JSON data)
-├── public/              # Static files (HTML template)
+├── assets/                    # Provided assets (auth.ts, JSON data)
+│   ├── auth.ts
+│   ├── health-conditions.json
+│   └── membership-tiers.json
+├── dist/                      # Build output
+├── public/                    # Static files (HTML template)
+│   └── index.html
 ├── src/
-│   ├── components/      # React components
-│   │   ├── __tests__/   # Component tests (colocated)
-│   │   ├── LoginStep.tsx
-│   │   ├── MembershipTierStep.tsx
-│   │   ├── CreditCardStep.tsx
-│   │   ├── HealthConditionsStep.tsx
-│   │   ├── SummaryStep.tsx
-│   │   └── Header.tsx
-│   ├── context/         # React Context providers
+│   ├── components/            # React components (organized by feature)
+│   │   ├── __tests__/         # Component tests (colocated)
+│   │   │   ├── Header.test.tsx
+│   │   │   └── LoginStep.test.tsx
+│   │   ├── login/             # Login step component
+│   │   │   ├── LoginStep.tsx
+│   │   │   ├── LoginStep.css
+│   │   │   └── LoginStep.test.tsx
+│   │   ├── membership/        # Membership selection component
+│   │   │   ├── MembershipTierStep.tsx
+│   │   │   ├── MembershipTierStep.css
+│   │   │   └── MembershipTierStep.test.tsx
+│   │   ├── payment/           # Payment step component
+│   │   │   ├── CreditCardStep.tsx
+│   │   │   ├── CreditCardStep.css
+│   │   │   └── CreditCardStep.test.tsx
+│   │   ├── health-info/       # Health conditions component
+│   │   │   ├── HealthConditionsStep.tsx
+│   │   │   ├── HealthConditionsStep.css
+│   │   │   └── HealthConditionsStep.test.tsx
+│   │   ├── summary/           # Summary step component
+│   │   │   ├── SummaryStep.tsx
+│   │   │   ├── SummaryStep.css
+│   │   │   └── SummaryStep.test.tsx
+│   │   └── shared/            # Shared components
+│   │       ├── Header.tsx
+│   │       ├── Header.css
+│   │       └── Header.test.tsx
+│   ├── context/               # React Context providers
+│   │   ├── __tests__/
+│   │   │   └── OnboardingContext.test.tsx
 │   │   └── OnboardingContext.tsx
-│   ├── types/           # TypeScript type definitions
+│   ├── constants/             # Application constants
 │   │   └── index.ts
-│   ├── App.tsx          # Main app component
-│   └── index.tsx        # Entry point
-├── webpack.config.js    # Webpack configuration
-├── tsconfig.json        # TypeScript configuration
-├── jest.config.js       # Jest configuration
-├── .eslintrc.js         # ESLint configuration
-└── package.json         # Dependencies and scripts
+│   ├── types/                 # TypeScript type definitions
+│   │   ├── index.ts
+│   │   └── json.d.ts
+│   ├── __mocks__/             # Jest mocks
+│   │   └── fileMock.js
+│   ├── __tests__/             # App-level tests
+│   │   └── App.test.tsx
+│   ├── App.tsx                # Main app component
+│   ├── App.css                # App styles
+│   ├── index.tsx              # Entry point
+│   └── setupTests.ts          # Jest setup
+├── webpack.config.js          # Webpack configuration
+├── tsconfig.json              # TypeScript configuration
+├── jest.config.js             # Jest configuration
+└── package.json               # Dependencies and scripts
 ```
 
 ### Form Flow

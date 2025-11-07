@@ -67,7 +67,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-bg-page);
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8f4f8 50%, #f0f8fa 100%);
+  background-attachment: fixed;
   color: var(--color-text-primary);
 }
 

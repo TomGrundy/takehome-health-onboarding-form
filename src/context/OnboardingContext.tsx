@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useState, ReactNode } from 'react';
 import { OnboardingState, OnboardingAction } from '../types';
-import { STORAGE_KEYS, ACTION_TYPES } from '../constants';
+import { STORAGE_KEYS, ACTION_TYPES, STEPS } from '../constants';
+import { isAuthenticated, verifyToken } from '../../assets/auth';
 
 const STORAGE_KEY = STORAGE_KEYS.ONBOARDING_STATE;
 
@@ -57,19 +58,43 @@ function onboardingReducer(
 interface OnboardingContextType {
   state: OnboardingState;
   dispatch: React.Dispatch<OnboardingAction>;
+  isVerifyingToken: boolean;
 }
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
 
 export function OnboardingProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(onboardingReducer, loadState());
+  const [isVerifyingToken, setIsVerifyingToken] = useState(false);
+
+  // Verify token on page load if user is not logged in
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+      if (token && !isAuthenticated()) {
+        setIsVerifyingToken(true);
+        try {
+          await verifyToken(token);
+        } catch (error) {
+          // Token is invalid, clear localStorage and reset to first step
+          localStorage.clear();
+          dispatch({ type: ACTION_TYPES.RESET });
+          dispatch({ type: ACTION_TYPES.SET_STEP, payload: STEPS.LOGIN });
+        } finally {
+          setIsVerifyingToken(false);
+        }
+      }
+    };
+
+    checkToken();
+  }, []);
 
   useEffect(() => {
     saveState(state);
   }, [state]);
 
   return (
-    <OnboardingContext.Provider value={{ state, dispatch }}>
+    <OnboardingContext.Provider value={{ state, dispatch, isVerifyingToken }}>
       {children}
     </OnboardingContext.Provider>
   );
